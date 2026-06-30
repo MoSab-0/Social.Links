@@ -1,7 +1,8 @@
-import React from 'react'
+
 import { useSelector } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 import LinkItem from './components/LinkItem'
+import { RootState } from './store'
 
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
@@ -18,20 +19,24 @@ const Container = styled.div`
   padding: 40px 20px;
   min-height: 100vh;
   animation: ${fadeIn} 0.8s ease-out;
+  box-sizing: border-box;
+
+  @media (max-width: 480px) {
+    padding: 20px 15px;
+  }
 `;
 
-
-
 const ProfileName = styled.h1`
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 5vw, 2rem);
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 8px;
   letter-spacing: 0.5px;
+  text-align: center;
 `;
 
 const Bio = styled.p`
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 32px;
   text-align: center;
@@ -42,11 +47,12 @@ const LinksContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 16px;
 `;
 
 function App() {
-  const { profile, links } = useSelector((state) => state.linksState)
+  const { profile, links } = useSelector((state: RootState) => state.linksState)
 
   return (
     <Container>
